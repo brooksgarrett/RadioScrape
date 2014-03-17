@@ -1,4 +1,4 @@
-# OCTANE
+# RadioScrape
 
 A super simple Ruby script to call the "Now Playing" service for a certain station and find out what is playing.
 
