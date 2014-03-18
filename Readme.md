@@ -1,6 +1,6 @@
-# OCTANE
+# RadioScrape
 
-A super simple Ruby script to call the "Now Playing" service for XM channel 37 (Octane) and find out what is playing.
+A super simple Ruby script to call the "Now Playing" service for a certain station and find out what is playing.
 
 # TODO
 
