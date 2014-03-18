@@ -20,6 +20,7 @@ if (meta["messages"][0]["code"][0] == "100")
     song	= meta['metaData'][0]['currentEvent'][0]['song'][0]['name'][0]
     detail = {:artist => artist, :song => song, :plays => 1, :station =>station}
     key = 'song:' + Digest::MD5.hexdigest(detail[:artist]+detail[:song])
+
     if (redis.get("last") == key)
 	    exit
     end

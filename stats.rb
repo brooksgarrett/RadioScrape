@@ -26,7 +26,11 @@ end
 puts header
 
 redis.keys('song:*').each do |key|
-	t = JSON.parse(redis.get(key))
+	begin
+		t = JSON.parse(redis.get(key))
+	rescue
+		t = JSON.parse(redis.get(key).gsub(/=>/, ':'))
+	end
         line =  t["artist"]
         pad = 50 - t["artist"].length
 	for i in 1..pad	
