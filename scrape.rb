@@ -32,7 +32,7 @@ if (meta["messages"][0]["code"][0] == "100")
     else 
 	    rDetail = JSON.parse(rDetail)
 	    rDetail["plays"] += 1
-	    redis.set(key, rDetail)
+	    redis.set(key, rDetail.to_json)
 	    puts 'Already heard this'
     end
     redis.set("last", key)

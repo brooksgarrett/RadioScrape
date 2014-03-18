@@ -30,6 +30,8 @@ redis.keys('song:*').each do |key|
 		t = JSON.parse(redis.get(key))
 	rescue
 		t = JSON.parse(redis.get(key).gsub(/=>/, ':'))
+		redis.set(key, t.to_json)
+		puts key
 	end
         line =  t["artist"]
         pad = 50 - t["artist"].length
