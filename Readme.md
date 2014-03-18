@@ -4,5 +4,5 @@ A super simple Ruby script to call the "Now Playing" service for a certain stati
 
 # TODO
 
--  [ ]  Generate Spotify playlist from this output
+-  []  Generate Spotify playlist from this output
 
