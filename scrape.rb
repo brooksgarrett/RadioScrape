@@ -8,7 +8,9 @@ require 'json'
 redis = Redis.new
 
 dString = Time.now().utc.strftime('%m-%d-%H:%M:%S')
-station = 'octane'
+stations = ['octane', '90salternative']
+stations.each { |station| 
+puts station
 url = 'https://www.siriusxm.com/metadata/pdt/en-us/xml/channels/' + station + '/timestamp/' + dString
 @data = URI.parse(url).read
 
@@ -22,7 +24,7 @@ if (meta["messages"][0]["code"][0] == "100")
     key = 'song:' + Digest::MD5.hexdigest(detail[:artist]+detail[:song])
 
     if (redis.get("last") == key)
-	    exit
+	    next
     end
 
     rDetail = redis.get(key)
@@ -40,4 +42,4 @@ if (meta["messages"][0]["code"][0] == "100")
 else
     puts 'Failed request.'
 end
-
+}
