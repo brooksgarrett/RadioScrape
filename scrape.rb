@@ -23,7 +23,7 @@ if (meta["messages"][0]["code"][0] == "100")
     detail = {:artist => artist, :song => song, :plays => 1, :station =>station}
     key = 'song:' + Digest::MD5.hexdigest(detail[:artist]+detail[:song])
 
-    if (redis.get("last") == key)
+    if (redis.get("last:" + station) == key)
 	    next
     end
 
@@ -37,7 +37,7 @@ if (meta["messages"][0]["code"][0] == "100")
 	    redis.set(key, rDetail.to_json)
 	    puts 'Already heard this'
     end
-    redis.set("last", key)
+    redis.set("last:" + station, key)
 
 else
     puts 'Failed request.'
