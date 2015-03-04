@@ -8,18 +8,24 @@ require 'json'
 redis = Redis.new
 debug = false
 
-dString = Time.now().utc.strftime('%m-%d-%H:%M:%S')
+# Have to take 10 seconds off in case we're fast
+dNow = Time.now() - 10
+
+dString = dNow.utc.strftime('%m-%d-%H:%M:%S')
 stations = ['octane', '90salternative']
+
 stations.each do |station| 
   if (debug)
     puts station
   end
 
   url = 'https://www.siriusxm.com/metadata/pdt/en-us/xml/channels/' + station + '/timestamp/' + dString
+  if (debug)
+      puts "URL:" + url
+  end
   @data = URI.parse(url).read
 
   meta = XmlSimple.xml_in(@data, { 'KeyAttr' => 'name' })
-
 
   if (meta["messages"][0]["code"][0] == "100") 
     artist 	= meta['metaData'][0]['currentEvent'][0]['artists'][0]['name'][0]
