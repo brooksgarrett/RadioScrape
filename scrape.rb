@@ -48,6 +48,7 @@ stations.each do |station|
     rDetail = redis.get(key)
     if (rDetail == nil)
       redis.set(key, detail.to_json)
+      redis.zadd("playlist:" + station, 1, key)
       if (debug)
         puts '  New Song!'
       end
@@ -55,6 +56,7 @@ stations.each do |station|
       rDetail = JSON.parse(rDetail)
       rDetail["plays"] += 1
       redis.set(key, rDetail.to_json)
+      redis.zincrby("playlist:" + station, 1, key)
       if (debug)
         puts '  Already heard this'
       end
