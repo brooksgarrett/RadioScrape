@@ -6,15 +6,22 @@ require 'redis'
 require 'json'
 
 redis = Redis.new
-debug = false
+
+config = JSON.parse(redis.get('config'))
+
+if (config['debug'] =~ (/^(true|t|yes|y|1)$/i))
+  debug = true
+else
+  debug = false
+end
 
 # Have to take 10 seconds off in case we're fast
 dNow = Time.now() - 10
 
 dString = dNow.utc.strftime('%m-%d-%H:%M:%S')
-stations = ['octane', '90salternative']
+stations =  JSON.parse(redis.get('stations'))
 
-stations.each do |station| 
+config['stations'].each do |station| 
   if (debug)
     puts station
   end
@@ -30,6 +37,11 @@ stations.each do |station|
   if (meta["messages"][0]["code"][0] == "100") 
     artist 	= meta['metaData'][0]['currentEvent'][0]['artists'][0]['name'][0]
     song	= meta['metaData'][0]['currentEvent'][0]['song'][0]['name'][0]
+    if (artist.start_with?('@') || artist.start_with?('#') )
+      exit
+    elsif (song.start_with?('@') || song.start_with?('#'))
+      exit
+    end
     detail = {:artist => artist, :song => song, :plays => 1, :station =>station}
     key = 'song:' + Digest::MD5.hexdigest(detail[:artist]+detail[:song])
     if (debug)
