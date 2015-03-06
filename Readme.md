@@ -9,3 +9,19 @@ First you need to create and app at [https://developer.spotify.com/my-applicatio
 Give the program your client ID and client secret to get your token link. Once you follow the link paste the code into the app and set debug to false.
 
 You're ready to go!
+
+# Scrape.rb
+
+```bash
+ruby scrape.rb
+```
+
+I configure scrape to run from my cron every minute. Adjust as you like.
+
+# Playlist.rb
+
+```bash
+ruby playlist.rb
+```
+
+This command will generate your playlists. It will name the playlist after the station name.
