@@ -19,7 +19,6 @@ end
 dNow = Time.now() - 10
 
 dString = dNow.utc.strftime('%m-%d-%H:%M:%S')
-stations =  JSON.parse(redis.get('stations'))
 
 config['stations'].each do |station| 
   if (debug)
