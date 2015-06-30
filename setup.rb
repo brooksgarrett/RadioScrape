@@ -11,6 +11,9 @@ config = redis.get('config')
 if (config == nil)
   config = {}
   config['stations'] = ['octane', '90salternative']
+  puts "Create an application. You'll need the client_id and the client_secret."
+  puts "Set the callback to: http://brooksgarrett.com/projects/radioscrape/callback.html"
+  puts "Go here to create your app: https://developer.spotify.com/my-applications/#!/applications"
   puts "Enter the client_id (from Spotify Dev Area)."
   config['client_id'] = gets.chomp
   puts "Enter the client_secret (from Spotify Dev Area)."
